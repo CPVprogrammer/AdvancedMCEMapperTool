@@ -9,10 +9,10 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("Advanced MCE Remote Mapper")> 
-<Assembly: AssemblyDescription("Tool to configure MCE Remotes")> 
+<Assembly: AssemblyDescription("Tool to configure MCE Remotes & Kodi keyboard.xml")> 
 <Assembly: AssemblyCompany("")> 
 <Assembly: AssemblyProduct("AdvancedMCERemoteMapper")> 
-<Assembly: AssemblyCopyright("Copyright © Baiju Xavior 2013")> 
+<Assembly: AssemblyCopyright("Copyright © Baiju Xavior 2013 & CPVprogrammer")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("2.0.0.0")> 
+<Assembly: AssemblyFileVersion("2.0.0.0")> 

@@ -31,15 +31,26 @@ Public Class frmMCERemote
             InitializeDatagrid()
             LoadMCEKey("FormLoad")
             FillKeyTableComboBox()
+            kodiButtonVisible()
         Catch ex As Exception
             MsgBox("Error 01: " & ex.Message, vbExclamation)
         End Try
 
-
-
     End Sub
 
 
+
+    Private Sub kodiButtonVisible()
+        'set button not visible if key stroke is empty
+        For cont = 0 To dgvMCE.RowCount - 1
+            'dgvMCE.Rows(cont).Cells("kodi_key").Value = "Button " + cont.ToString()
+
+            If Me.dgvMCE.Item(8, cont).Value <> "" Then
+                Me.dgvMCE.Item(12, cont).Value = "set"
+            End If
+        Next
+
+    End Sub
 
 
     Private Sub LoadMCEKey(ByVal LoadFrom As String)
@@ -331,6 +342,7 @@ Public Class frmMCERemote
 
     End Sub
 
+
     Private Function PopulateModifierKeys(ByVal j As Integer, ByVal Modifier As String) As String
 
         Try
@@ -460,8 +472,6 @@ Public Class frmMCERemote
         LoadMCEKey("SavedFile")
     End Sub
 
-
-
     Private Sub btnLoadBackupMCE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadBackupMCE.Click
         LoadMCEKey("Backup")
     End Sub
@@ -551,49 +561,90 @@ Public Class frmMCERemote
 
 
     Private Sub DataGridView1_CellContentClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvMCE.CellContentClick
+
         If e.ColumnIndex > 2 And e.ColumnIndex < 8 Then
             Dim selectedkey As String = ""
-            If Me.dgvMCE.Rows(e.RowIndex).Cells(7).Value Is Nothing Then
-                selectedkey = ""
-            Else
-                selectedkey = Me.dgvMCE.Rows(e.RowIndex).Cells(7).Value.ToString
-            End If
+            Try
+                If Me.dgvMCE.Rows(e.RowIndex).Cells(7).Value Is Nothing Then
+                    selectedkey = ""
+                Else
+                    selectedkey = Me.dgvMCE.Rows(e.RowIndex).Cells(7).Value.ToString
+                End If
+                If selectedkey <> "" And selectedkey <> "(None)" And (selectedkey.StartsWith("=") = False) Then
+                    Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value = CalculateShortCutKey(e.RowIndex, selectedkey)
+                Else
+                    Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value = ""
+                End If
 
-            If selectedkey <> "" And selectedkey <> "(None)" And (selectedkey.StartsWith("=") = False) Then
-                Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value = CalculateShortCutKey(e.RowIndex, selectedkey)
-            Else
-                Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value = ""
-            End If
+                If Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value <> Me.dgvMCE.Rows(e.RowIndex).Cells(11).Value Then
+                    Me.dgvMCE.Rows(e.RowIndex).Cells(8).Style.BackColor = Color.Yellow
+                Else
+                    Me.dgvMCE.Rows(e.RowIndex).Cells(8).Style.BackColor = Color.White
+                End If
+            Catch ex As Exception
+            End Try
 
-            If Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value <> Me.dgvMCE.Rows(e.RowIndex).Cells(11).Value Then
-                Me.dgvMCE.Rows(e.RowIndex).Cells(8).Style.BackColor = Color.Yellow
-            Else
-                Me.dgvMCE.Rows(e.RowIndex).Cells(8).Style.BackColor = Color.White
+        ElseIf e.ColumnIndex = 12 Then
+            Dim senderGrid = DirectCast(sender, DataGridView)
+
+            If TypeOf senderGrid.Columns(e.ColumnIndex) Is DataGridViewButtonColumn AndAlso e.RowIndex >= 0 Then
+                If Not IsDBNull(Me.dgvMCE.Item(e.ColumnIndex, e.RowIndex).Value) AndAlso Me.dgvMCE.Item(e.ColumnIndex, e.RowIndex).Value = "set" _
+                   And Not Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value = "" Then
+                    'open child form to set keyboard.xml
+                    shareCTRL = False
+                    shareShift = False
+                    shareALT = False
+                    shareWindows = False
+                    shareKey = Me.dgvMCE.Item(7, e.RowIndex).Value.ToString
+
+                    If CBool(Me.dgvMCE.Item(3, e.RowIndex).Value) = True Then
+                        shareCTRL = True
+                    End If
+
+                    If CBool(Me.dgvMCE.Item(4, e.RowIndex).Value) = True Then
+                        shareShift = True
+                    End If
+
+                    If CBool(Me.dgvMCE.Item(5, e.RowIndex).Value) = True Then
+                        shareALT = True
+                    End If
+
+                    If CBool(Me.dgvMCE.Item(6, e.RowIndex).Value) = True Then
+                        shareWindows = True
+                    End If
+
+                    frmKeyboard.dgvCmbActions.DataSource = Nothing
+                    frmKeyboard.ShowDialog()
+                End If
             End If
 
         End If
     End Sub
 
+
     Private Sub DataGridView1_CellContentDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs) Handles dgvMCE.CellContentDoubleClick
         If e.ColumnIndex > 2 And e.ColumnIndex < 8 Then
             Dim selectedkey As String = ""
-            If Me.dgvMCE.Rows(e.RowIndex).Cells(7).Value Is Nothing Then
-                selectedkey = ""
-            Else
-                selectedkey = Me.dgvMCE.Rows(e.RowIndex).Cells(7).Value.ToString
-            End If
+            Try
+                If Me.dgvMCE.Rows(e.RowIndex).Cells(7).Value Is Nothing Then
+                    selectedkey = ""
+                Else
+                    selectedkey = Me.dgvMCE.Rows(e.RowIndex).Cells(7).Value.ToString
+                End If
 
-            If selectedkey <> "" And selectedkey <> "(None)" And (selectedkey.StartsWith("=") = False) Then
-                Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value = CalculateShortCutKey(e.RowIndex, selectedkey)
-            Else
-                Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value = ""
-            End If
+                If selectedkey <> "" And selectedkey <> "(None)" And (selectedkey.StartsWith("=") = False) Then
+                    Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value = CalculateShortCutKey(e.RowIndex, selectedkey)
+                Else
+                    Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value = ""
+                End If
 
-            If Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value <> Me.dgvMCE.Rows(e.RowIndex).Cells(11).Value Then
-                Me.dgvMCE.Rows(e.RowIndex).Cells(8).Style.BackColor = Color.Yellow
-            Else
-                Me.dgvMCE.Rows(e.RowIndex).Cells(8).Style.BackColor = Color.White
-            End If
+                If Me.dgvMCE.Rows(e.RowIndex).Cells(8).Value <> Me.dgvMCE.Rows(e.RowIndex).Cells(11).Value Then
+                    Me.dgvMCE.Rows(e.RowIndex).Cells(8).Style.BackColor = Color.Yellow
+                Else
+                    Me.dgvMCE.Rows(e.RowIndex).Cells(8).Style.BackColor = Color.White
+                End If
+            Catch ex As Exception
+            End Try
         End If
     End Sub
 
@@ -636,11 +687,24 @@ Public Class frmMCERemote
 
         If Me.dgvMCE.Rows(RowIndex).Cells(8).Value <> Me.dgvMCE.Rows(RowIndex).Cells(11).Value Then
             Me.dgvMCE.Rows(RowIndex).Cells(8).Style.BackColor = Color.Yellow
+
+            If Me.dgvMCE.Rows(RowIndex).Cells(8).Value = "" Then
+                Me.dgvMCE.Rows(RowIndex).Cells(12).Value = ""
+            Else
+                Me.dgvMCE.Rows(RowIndex).Cells(12).Value = "set"
+            End If
+
         Else
             Me.dgvMCE.Rows(RowIndex).Cells(8).Style.BackColor = Color.White
+
+            If Me.dgvMCE.Rows(RowIndex).Cells(8).Value = "" Then
+                Me.dgvMCE.Rows(RowIndex).Cells(12).Value = ""
+            Else
+                Me.dgvMCE.Rows(RowIndex).Cells(12).Value = "set"
+            End If
         End If
 
-        
+
     End Sub
 
 
@@ -874,4 +938,5 @@ Public Class frmMCERemote
 
         End Try
     End Sub
+
 End Class
