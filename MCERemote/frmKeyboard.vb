@@ -8,6 +8,7 @@ Public Class frmKeyboard
         sectionsList.Clear()
         sectionsDataGrid.Clear()
         actionsList.Clear()
+        actionsDataGrid.Clear()
 
         Me.Dispose()
     End Sub
@@ -55,13 +56,14 @@ Public Class frmKeyboard
 
 
     Private Sub fillDataGrid()
-        dgvCmbActions.DataSource = actionsList
 
         If IsNumeric(shareKey) Then
             shareKey = numbersString(CInt(shareKey))
         End If
 
         searchInxml()
+
+        dgvCmbActions.DataSource = actionsDataGrid
 
         If sectionsDataGrid.Count > 0 Then
             Me.dgvKeyboard.Rows.Add(sectionsDataGrid.Count)
@@ -70,10 +72,10 @@ Public Class frmKeyboard
                 Me.dgvKeyboard.Rows(row).Cells(0).Value = sectionsDataGrid(row)
 
                 If row < contFound Then
-                    Me.dgvKeyboard.Rows(row).Cells(1).Value = actionsList(row + 1)
-                    Me.dgvKeyboard.Rows(row).Cells(2).Value = fillXPath(2) & actionsList(row + 1) & "</" & shareKey.ToLower & ">"
+                    Me.dgvKeyboard.Rows(row).Cells(1).Value = actionsDataGrid(row + 1)
+                    Me.dgvKeyboard.Rows(row).Cells(2).Value = fillXPath(2) & actionsDataGrid(row + 1) & "</" & shareKey.ToLower & ">"
                 Else
-                    Me.dgvKeyboard.Rows(row).Cells(1).Value = actionsList(0)
+                    Me.dgvKeyboard.Rows(row).Cells(1).Value = actionsDataGrid(0)
                     Me.dgvKeyboard.Rows(row).Cells(2).Value = "none"
                 End If
             Next
@@ -156,7 +158,7 @@ Public Class frmKeyboard
     Private Sub searchInxml()
         Dim xpath As String = fillXPath(1)
         Dim posSection As Integer
-        Dim fillSections As Integer
+        Dim fillRows As Integer
 
         Dim xmlDoc As New XmlDocument
         Try
@@ -171,11 +173,18 @@ Public Class frmKeyboard
                 foundInXml(node, posSection)
             Next
 
-            fillSections = contFound
+            fillRows = contFound
 
             For i = 0 To sectionsList.Count - 1
-                sectionsDataGrid.Insert(fillSections, sectionsList(i))
-                fillSections = fillSections + 1
+                sectionsDataGrid.Insert(fillRows, sectionsList(i))
+                fillRows = fillRows + 1
+            Next
+
+            fillRows = contFound + 1
+
+            For i = 0 To actionsList.Count - 1
+                actionsDataGrid.Insert(fillRows, actionsList(i))
+                fillRows = fillRows + 1
             Next
 
         Catch ex As Exception
@@ -202,7 +211,7 @@ Public Class frmKeyboard
             actionsList.RemoveAt(posAction)
         End If
 
-        actionsList.Insert(contFound, node.InnerText)
+        actionsDataGrid.Insert(contFound, node.InnerText)
 
     End Sub
 
@@ -289,6 +298,7 @@ Public Class frmKeyboard
 
         actionsList.Sort()
         actionsList.Insert(0, "none")
+        actionsDataGrid.Insert(0, "none")
 
         Dim directoryName As String
         Try

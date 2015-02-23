@@ -61,7 +61,9 @@ Module Module1
 
     Public sectionsList As New ArrayList
     Public sectionsDataGrid As New ArrayList
+
     Public actionsList As New ArrayList
+    Public actionsDataGrid As New ArrayList
 
     Public contFound As Integer
 End Module
