@@ -227,7 +227,11 @@ Public Class frmKeyboard
             End If
 
         Else
-            Me.Dispose()
+            xmlKeyboard = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\keyboard.xml"
+
+            If Not File.Exists(xmlKeyboard) Then
+                createDefaultKeyboard(xmlKeyboard)
+            End If
         End If
 
     End Sub
