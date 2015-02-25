@@ -63,7 +63,10 @@ Public Class frmKeyboard
 
         searchInxml()
 
-        dgvCmbActions.DataSource = actionsDataGrid
+        actionsList.Sort()
+        actionsList.Insert(0, "none")
+
+        dgvCmbActions.DataSource = actionsList
 
         If sectionsDataGrid.Count > 0 Then
             Me.dgvKeyboard.Rows.Add(sectionsDataGrid.Count)
@@ -72,10 +75,12 @@ Public Class frmKeyboard
                 Me.dgvKeyboard.Rows(row).Cells(0).Value = sectionsDataGrid(row)
 
                 If row < contFound Then
-                    Me.dgvKeyboard.Rows(row).Cells(1).Value = actionsDataGrid(row + 1)
-                    Me.dgvKeyboard.Rows(row).Cells(2).Value = fillXPath(2) & actionsDataGrid(row + 1) & "</" & shareKey.ToLower & ">"
+                    Dim posAction As Integer = actionsList.IndexOf(actionsDataGrid(row))
+
+                    Me.dgvKeyboard.Rows(row).Cells(1).Value = actionsList(posAction)
+                    Me.dgvKeyboard.Rows(row).Cells(2).Value = fillXPath(2) & actionsList(posAction) & "</" & shareKey.ToLower & ">"
                 Else
-                    Me.dgvKeyboard.Rows(row).Cells(1).Value = actionsDataGrid(0)
+                    Me.dgvKeyboard.Rows(row).Cells(1).Value = actionsList(0)
                     Me.dgvKeyboard.Rows(row).Cells(2).Value = "none"
                 End If
             Next
@@ -156,6 +161,8 @@ Public Class frmKeyboard
 
 
     Private Sub searchInxml()
+        'search if the key is set in keyboard.xml
+
         Dim xpath As String = fillXPath(1)
         Dim posSection As Integer
         Dim fillRows As Integer
@@ -170,6 +177,7 @@ Public Class frmKeyboard
             contFound = 0
 
             For Each node As XmlElement In searchNodeList
+                'contFound is incremented here
                 foundInXml(node, posSection)
             Next
 
@@ -177,13 +185,6 @@ Public Class frmKeyboard
 
             For i = 0 To sectionsList.Count - 1
                 sectionsDataGrid.Insert(fillRows, sectionsList(i))
-                fillRows = fillRows + 1
-            Next
-
-            fillRows = contFound + 1
-
-            For i = 0 To actionsList.Count - 1
-                actionsDataGrid.Insert(fillRows, actionsList(i))
                 fillRows = fillRows + 1
             Next
 
@@ -196,6 +197,7 @@ Public Class frmKeyboard
 
 
     Private Sub foundInXml(node As XmlElement, posSection As Integer)
+        'if it is found fill the arrays sections and actions
 
         posSection = sectionsList.IndexOf(node.ParentNode.ParentNode.Name)
         If Not posSection = -1 Then
@@ -204,14 +206,15 @@ Public Class frmKeyboard
 
         sectionsDataGrid.Insert(contFound, node.ParentNode.ParentNode.Name)
 
-        contFound = contFound + 1
-
         Dim posAction As Integer = actionsList.IndexOf(node.InnerText)
-        If Not posAction = -1 Then
-            actionsList.RemoveAt(posAction)
+
+        If posAction = -1 Then
+            actionsList.Insert(0, node.InnerText)
         End If
 
         actionsDataGrid.Insert(contFound, node.InnerText)
+
+        contFound = contFound + 1
 
     End Sub
 
@@ -295,10 +298,6 @@ Public Class frmKeyboard
                 actionsList.Add(childXmlNode.ChildNodes.Item(i).InnerText)
             Next i
         End If
-
-        actionsList.Sort()
-        actionsList.Insert(0, "none")
-        actionsDataGrid.Insert(0, "none")
 
         Dim directoryName As String
         Try
