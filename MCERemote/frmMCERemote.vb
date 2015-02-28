@@ -613,6 +613,9 @@ Public Class frmMCERemote
                         shareWindows = True
                     End If
 
+                    shareKeyCode = Me.dgvMCE.Item(0, e.RowIndex).Value
+                    shareButtonName = Me.dgvMCE.Item(1, e.RowIndex).Value
+
                     frmKeyboard.dgvCmbActions.DataSource = Nothing
                     frmKeyboard.ShowDialog()
                 End If

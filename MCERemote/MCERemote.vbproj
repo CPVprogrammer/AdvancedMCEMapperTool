@@ -153,18 +153,6 @@
     <None Include="Resources\Undo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Arrow-Down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Arrow-Left.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Arrow-Right.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Arrow-Up.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\0.png" />
   </ItemGroup>
   <ItemGroup>
@@ -195,9 +183,6 @@
     <None Include="Resources\9.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Active.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\ArrowDown.png" />
   </ItemGroup>
   <ItemGroup>
@@ -216,12 +201,6 @@
     <None Include="Resources\Bck.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Ch-.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Ch+.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\ColorBlue.png" />
   </ItemGroup>
   <ItemGroup>
@@ -234,31 +213,7 @@
     <None Include="Resources\ColorYellow.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Dash.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DirectionDown.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DirectionLeft.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DirectionRight.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\DirectionUp.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Enter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Exit.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\FF.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Format.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Fwd.png" />
@@ -268,18 +223,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Info.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Input.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\List.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Menu.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Minus.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Mute.png" />
@@ -294,13 +237,7 @@
     <None Include="Resources\Pause.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Plus.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Power.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Prev.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Record.png" />
@@ -309,22 +246,10 @@
     <None Include="Resources\Rew.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Select.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Stop.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Vol-.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Vol+.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\volume down.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\volume down %282%29.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\VolumeDown.png" />
@@ -360,16 +285,7 @@
     <None Include="Resources\Power small.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Windows.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Clear.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Exit1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\On1.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GSB.png" />

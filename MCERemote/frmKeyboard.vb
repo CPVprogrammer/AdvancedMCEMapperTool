@@ -17,7 +17,14 @@ Public Class frmKeyboard
     Private Sub frmKeyboard_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Me.dgvKeyboard.ColumnHeadersDefaultCellStyle.Font = New System.Drawing.Font("Segoe UI", 9, System.Drawing.FontStyle.Bold)
 
-        txtKey.Text = shareKey
+        txtKey.Text = fillXPath(2)
+
+        Dim keyCodeStringArr As New ArrayList
+        keyCodeStringArr.AddRange(keyCodeString)
+
+        picBoxButton.Image = My.Resources.ResourceManager.GetObject(keyCodeIcon(keyCodeStringArr.IndexOf(shareKeyCode)))
+
+        txtButtonName.Text = shareButtonName
 
         check_shareKey()
 

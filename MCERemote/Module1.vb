@@ -49,12 +49,27 @@ Module Module1
                                           "power", "volume_mute", "volume_up", "volume_down"
                                          }
 
+    Public keyCodeString() As String = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "0A", "0B", "0C", "0D", "0E", "0F", "10", "11", "12", "13",
+                                        "14", "15", "16", "17", "18", "19", "1A", "1B", "1C", "1D", "1E", "1F", "20", "21", "22", "23", "24", "25", "26",
+                                        "27", "28", "29", "2A", "32", "33", "34", "3B", "46", "47", "48", "49", "4A", "4B", "4C", "4D", "4E", "4F", "50",
+                                        "51", "5A", "5B", "5C", "5D", "5E", "64", "65", "66", "68", "6C", "6D", "6E"}
+
+    Public keyCodeIcon() As String = {"_1", "_2", "_3", "_4", "_5", "_6", "_7", "_8", "_9", "Clear", "Enter", "Power", "GSB", "Mute", "Info", "VolumeUp",
+                                      "VolumeDown", "ChannelUP", "ChannelDown", "FF", "Rew", "Play", "Record", "Pause", "_Stop", "Fwd", "Bck", "Sharp",
+                                      "Star", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight", "OK", "Back", "DVDMenu", "LiveTV", "Guide", "Zoom",
+                                      "BlankIcon", "_On", "Off", "BlankIcon", "BlankIcon", "BlankIcon", "BlankIcon", "MyTV", "Music", "RecTV",
+                                      "Picture", "Video", "BlankIcon", "BlankIcon", "BlankIcon", "BlankIcon", "BlankIcon", "BlankIcon", "BlankIcon",
+                                      "Teletext", "ColorRed", "ColorGreen", "ColorYellow", "ColorBlue", "XBox", "BlankIcon", "XBoxA", "XBoxX", "BlankIcon",
+                                      "BlankIcon", "PlayPause"}
+
     Public appPath As String = Application.StartupPath()
     Public shareCTRL As Boolean
     Public shareALT As Boolean
     Public shareShift As Boolean
     Public shareWindows As Boolean
     Public shareKey As String
+    Public shareKeyCode As String
+    Public shareButtonName As String
 
     Public xmlKeyboard As String
     Public searchNodeList As XmlNodeList
